@@ -26,6 +26,14 @@ class String {
         friend ostream & operator<<(ostream &os, const String &st);
         friend istream & operator>>(istream &is, String &st);
         static int HowMany();
+        
+
+        // new
+        friend String operator+(char *cstr, const String &st);
+        String operator+(const String &st) const;
+        void stringlow();
+        void stringup();
+        int charTimes(char c) const;
 };
 
 #endif 

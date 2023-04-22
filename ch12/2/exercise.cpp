@@ -1,5 +1,6 @@
 #include "exercise.h"
 #include <cstring>
+#include <cctype>
 
 using std::cin;
 using std::cout;
@@ -80,12 +81,53 @@ ostream &operator<<(ostream &os, const String &st) {
 }
 
 istream &operator>>(istream &is, String &st) {
-    
+    char temp[String::CINLIM];
+    is.get(temp, String::CINLIM);
+    if (is) 
+        st = temp; // do assignment operator
+    while(is && is.get() != '\n')
+        continue;
+    return is;
 }
 
+String String::operator+(const String &st) const {
+    String newSt;
+    newSt.len = this->len + st.len;
+    newSt.str = new char[newSt.len+1];
+    std::strcpy(newSt.str, this->str);
+    std::strcpy(newSt.str + this->len, st.str);
 
-// bool operator<(const String &st, const String &st2) 
-// bool operator>(const String &st1, const String &st2);
-// bool operator==(const String &st, const String &st2);
-// ostream & operator<<(ostream &os, const String &st);
-// istream & operator>>(istream &is, String &st);
+    return newSt;
+}
+
+String operator+(char *cstr, const String &st) {
+    String newSt;
+    int cstrLen = strlen(cstr);
+    newSt.len = cstrLen + st.len;
+    newSt.str = new char[newSt.len+1];
+    std::strcpy(newSt.str, cstr);
+    std::strcpy(newSt.str + cstrLen, st.str);
+
+    return newSt;
+}
+
+void String::stringlow() {
+     for (int i = 0; i < len; i++) {
+        str[i] = tolower(str[i]);
+     }
+}
+
+void String::stringup() {
+    for (int i = 0; i < len; i++) {
+        str[i] = toupper(str[i]);
+    }
+}
+
+int String::charTimes(char c) const {
+    int count = 0;
+    for (int i = 0; i < len; i++) {
+        if (str[i] == c) count++;
+    }
+
+    return count;
+}
