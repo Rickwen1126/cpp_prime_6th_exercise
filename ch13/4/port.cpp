@@ -12,7 +12,6 @@ Port::Port(const char *br, const char *st, int b) {
 
 Port::Port(const Port &p) {
     size_t brLen = strlen(p.brand) + 1;
-    delete [] brand;
     brand = new char[brLen];
     strncpy(brand, p.brand, brLen);
     strncpy(style, p.style, 20);
@@ -72,7 +71,6 @@ VintagePort::VintagePort(const char *br, int b, const char *nn, int y) : Port(br
 }
 
 VintagePort::VintagePort(const VintagePort &vp) : Port(vp){
-    delete [] nickname;
     size_t nameSize = strlen(vp.nickname) + 1;
     nickname = new char[nameSize];
     strncpy(nickname, vp.nickname, nameSize);

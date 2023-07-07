@@ -20,6 +20,7 @@ class baseDMA : public abcDMA{
     public:
         baseDMA(const char * l = "null", int r = 0);
         baseDMA(const baseDMA &rs);
+        baseDMA operator=(const baseDMA &ot); 
         virtual void View() const;
         friend std::ostream &operator<<(std::ostream &os, const baseDMA &);
 };
@@ -29,6 +30,7 @@ class lacksDMA : public abcDMA {
         enum { COL_LEN = 40};
         lacksDMA(const char *c = "blank", const char *l = "null", int r = 0);
         lacksDMA(const char *c, const abcDMA &rs);
+        lacksDMA operator=(const lacksDMA &);
         friend std::ostream & operator<<(std::ostream &os, const lacksDMA &rs);
         virtual void View() const;
     private:
@@ -42,8 +44,8 @@ class hasDMA : public abcDMA {
         hasDMA(const char *s = "none", const char *l = "null", int r = 0);
         hasDMA(const char *s, const abcDMA &rs);
         hasDMA(const hasDMA &hs);
+        hasDMA operator=(const hasDMA&);
         ~hasDMA();
-        hasDMA &operator=(const hasDMA &rs);
         friend std::ostream & operator<<(std::ostream &os, const hasDMA &rs);
         virtual void View() const;
 };

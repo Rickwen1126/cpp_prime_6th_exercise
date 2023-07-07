@@ -1,3 +1,6 @@
+#ifndef EMP_H
+#define EMP_H
+
 #include <iostream>
 #include <string>
 
@@ -6,8 +9,12 @@ class abstr_emp {
         std::string fname;
         std::string lname;
         std::string job;
+    protected:
+        void data() const;
+        void input();
     public:
         abstr_emp();
+        abstr_emp(const abstr_emp &ab);
         abstr_emp(const std::string &fn, const std::string & ln, const std::string &j);
         virtual void ShowAll() const;
         virtual void SetAll();
@@ -18,5 +25,55 @@ class abstr_emp {
 class employee : public abstr_emp {
     public:
         employee();
-        empl
-}
+        employee(const std::string &fn, const std::string &ln,  const std::string &j);
+        virtual void ShowAll() const;
+        virtual void SetAll();
+};
+
+
+class manager : virtual public abstr_emp {
+    private:
+        int  inchargeof; /// num of abstr_emps managed
+    protected:
+        int InChargeOf() const {return inchargeof;}
+        int &InChargeOf() {return inchargeof;}
+        void data() const;
+        void input();
+    public:
+        manager();
+        manager(const std::string &fn, const std::string &ln, const std::string &j, int ico = 0);
+        manager(const abstr_emp & e, int ico);
+        manager(const manager &m);
+        virtual void ShowAll() const;
+        virtual void SetAll();
+};
+
+class fink: virtual public abstr_emp {
+    private:
+        std::string reportsto;
+    protected:
+        void data() const;
+        void input(); 
+        const std::string ReportsTo() const {return reportsto;}
+        std::string & ReportsTo() {return reportsto;}
+    public:
+        fink();
+        fink(const std::string &fn, const std::string &ln, const std::string &j, const std::string &rpo);
+        fink(const abstr_emp &e, const std::string &rpo);
+        fink(const fink &e);
+        virtual void ShowAll() const;
+        virtual void SetAll();
+};
+
+class highfink : public manager, public fink {
+    public:
+        highfink();
+        highfink(const std::string &fn, const std::string &ln, const std::string &j, const std::string &rpo, int ico);
+        highfink(const abstr_emp &e, const std::string &rpo, int ico);
+        highfink(const manager &m, const std::string &rpo);
+        highfink(const highfink &h);
+        virtual void ShowAll() const;
+        virtual void SetAll();
+};
+
+#endif

@@ -38,6 +38,16 @@ baseDMA::baseDMA(const char *l, int r) : abcDMA(l, r){
 
 baseDMA::baseDMA(const baseDMA &rs) : abcDMA(rs) {}
 
+baseDMA baseDMA::operator=(const baseDMA &ot) {
+    if (&ot == this) {
+        return *this;
+    }
+
+    abcDMA::operator=(ot);
+
+    return *this;
+}
+
 std::ostream &operator<<(std::ostream &os, const baseDMA &rs) {
     os << (const abcDMA&)rs;
     return os;
@@ -55,6 +65,15 @@ lacksDMA::lacksDMA(const char *c, const char *l, int r) : abcDMA(l, r){
 lacksDMA::lacksDMA(const char *c, const abcDMA &rs) : abcDMA(rs) {
     std::strncpy(color, c, COL_LEN - 1);
     color[COL_LEN - 1] = '\0';
+}
+
+lacksDMA lacksDMA::operator=(const lacksDMA &ot){
+    if (&ot == this) {
+        return *this;
+    }
+
+    abcDMA::operator=(ot);
+    std::strcpy(color, ot.color);
 }
 
 void lacksDMA::View() const{
@@ -86,7 +105,7 @@ hasDMA::~hasDMA() {
     delete [] style;
 }
 
-hasDMA &hasDMA::operator=(const hasDMA &hs) {
+hasDMA hasDMA::operator=(const hasDMA &hs) {
     if (this == &hs) {
         return *this;
     }

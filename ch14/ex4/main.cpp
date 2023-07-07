@@ -45,48 +45,27 @@ int main() {
         switch (choice)
         {
         case 'p': {
-            auto namePair = GetPersonName();
-            personQue.enqueue(new Person(namePair.first, namePair.second));
+            personQue.enqueue(new Person);
             break;
         } 
         case 'g': {
-            auto namePair = GetPersonName();
-            double t = 0;
-            int n = 0;
-            cout << "Please enter Gunslinger draw time:";
-            cin >> t;
-            cout << "Please enter Gunslinger notches:";
-            cin >> n;
-            auto gunslinger = new Gunslinger(Person(namePair.first, namePair.second), t, n);
-            personQue.enqueue(gunslinger);
-            cout << "Gunslinger do draw with time:" << gunslinger->Draw() << endl;
-            break;
+           personQue.enqueue(new Gunslinger);
+           break;
         } 
         case 'c': {
-            auto namePair = GetPersonName();
-            auto pokerPlayer = new PokerPlayer(Person(namePair.first, namePair.second));
-            personQue.enqueue(pokerPlayer);
-            cout << "PokerPlayer do draw with card:" << pokerPlayer->Draw() << endl;
+            personQue.enqueue(new PokerPlayer);
             break;
         }
         case 'b': {
-            auto namePair = GetPersonName();
-            double t = 0;
-            int n = 0;
-            cout << "Please enter BadDude draw time:";
-            cin >> t;
-            cout << "Please enter BadDude notches:";
-            cin >> n;
-            auto badDude = new BadDude(Person(namePair.first, namePair.second), t, n);
-            personQue.enqueue(badDude);
-            cout << "BadDude do draw gun with time:" << badDude->Gdraw() << endl;
-            cout << "BadDude do draw card:" << badDude->Cdraw() << endl;
+            personQue.enqueue(new BadDude); 
             break;
         }
         default:
             break;
         }
         cin.get();
+        personQue[ct]->Set();
+        personQue[ct]->Show();
     }
 
     cout << "\nHere is your staff:\n";
