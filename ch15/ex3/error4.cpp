@@ -20,17 +20,18 @@ int main() {
             cout << "Harmonic mean of " << x << " and " << y << " is " << z << endl;
             cout << "Geometric mean of " << x << " and " << y << " is " << gmean(x,y) << endl;
             cout << "Enter next set of numbers <q to quit>: ";
-        } catch (bad_hmean &bg) {
-            cout << bg.what();
+        } catch (bad_mean &g) {
+            cout << g.what() << endl;
+            g.report();
+
+            if (nullptr != dynamic_cast<bad_gmean*>(&g)) {
+                cout << "Sorry, you don't get to play any more.\n";
+                break;
+            } 
+
             cout <<"Try again.\n";
             continue;
-        } catch (bad_gmean &hg) {
-            cout << hg.what();
-            // cout << "Values used: " << hg.v1 << ", " << hg.v2 << endl;
-            cout << "Sorry, you don't get to play any more.\n";
-            break;
-        }
-
+        } 
         cout << "Bye!\n";
         return 0;
     }
@@ -38,7 +39,7 @@ int main() {
 
 double hmean(double a, double b) {
     if (a == -b) {
-        throw bad_hmean("");
+        throw bad_hmean(a, b);
     }
 
     return 2.0 *a * b / (a + b);
@@ -46,7 +47,7 @@ double hmean(double a, double b) {
 
 double gmean(double a, double b) {
     if (a < 0 || b < 0) {
-        throw bad_gmean("");
+        throw bad_gmean(a, b);
     }
     return std::sqrt(a * b);
 }
