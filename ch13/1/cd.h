@@ -46,6 +46,8 @@ class Cd {
             copyString(d.performers, d.label);
             selections = d.selections;
             playtime = d.playtime;
+
+            return *this; // This one is wrong;
         }
 };
 
@@ -73,6 +75,8 @@ class Classic : public Cd {
 
             Cd::operator=(d);
             primaryWork = d.primaryWork;
+
+            return *this;
         }
 
         

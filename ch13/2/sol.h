@@ -52,7 +52,8 @@ class Cd {
             if (this == &d) {
                 return *this;
             }
-            
+            delete [] performers;
+            delete [] label;
             copyString(d.performers, d.label);
             selections = d.selections;
             playtime = d.playtime;
@@ -67,8 +68,7 @@ class Classic : public Cd {
         void copyPrimaryWork(const char *work) {
             size_t workLen = strlen(work);
             primaryWork = new char[workLen + 1]{'\0'};
-            strncpy(primaryWork, work, workLen + 1);
-            primaryWork[workLen] = '\0';
+            strncpy(primaryWork, work, workLen);
         }
     public:
         Classic(const char *work, const char* per, const char* lab, int s, double time) : Cd(per, lab, s, time) {
