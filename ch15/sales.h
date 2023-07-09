@@ -32,6 +32,13 @@ class LabeledSales : public Sales {
                 nbad_index(const std::string & lb, int ix, const std::string &s = "Index error in LabeldSales object\n");
                 const std::string & label_val() const {return lbl;}
                 virtual ~nbad_index() throw() {}
-        };
-        // Start from here
+        }; 
+        explicit LabeledSales(const std::string &lb = "none", int yy = 0);
+        LabeledSales(const std::string &lb, int yy, const double *gr, int n);
+        virtual ~LabeledSales() {}
+        const std::string &Label() const {return label;}
+        virtual double operator[](int i) const;
+        virtual double &operator[](int i);
+    private:
+        std::string label;
 };
