@@ -1,20 +1,28 @@
 #include <string>
 #include <iostream>
+#include <fstream>
+#include <cstdlib>
 
 int main() {
-    using std::string;
-    using std::cout;
+    using namespace std;
+    ifstream fin;
+    fin.open("tobuy.txt");
+    if (fin.is_open() == false) {
+        cerr << "Can't open file. Buy" << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    string item;
+    int count = 0;
+    getline(fin, item, ':');
+    while(fin.good()) {
+        count++;
+        cout << count << ": " << item <<endl;
+        getline(fin, item, ':');
+    }
+
+    cout << "Done\n";
+    fin.close();
     
-    string c1("rick1");
-    string c2(10, 'x');
-    string c2(c1);
-    string c();
-    string (c1, 2);
-    string (c1[1], c1[3]);
-    string (c1, 2, 3);
-    string ('1', '2,', '5', '7');
-
-    cout 
-
     return 0;
 }
