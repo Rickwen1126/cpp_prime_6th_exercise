@@ -64,5 +64,3 @@ double &LabeledSales::operator[](int i) {
 
     return Sales::operator[](i);
 }
-
-// select * from tabel_name where 'Key'=any(col_name);
