@@ -4,30 +4,61 @@
 #include <ctime>
 #include <cctype>
 #include <vector>
+#include <fstream>
 
 using std::string;
 const int NUM = 26;
-const string wordlist[NUM] = {"apiary", "beetle", "cereal",
- "danger", "ensign", "florid", "garage", "health", "insult",
- "jackal", "keeper", "loaner", "manage", "nonce", "onset",
- "plaid", "quilt", "remote", "stolid", "train", "useful",
- "valid", "whence", "xenon", "yearn", "zippy"};
+// const string wordlist[NUM] = {"apiary", "beetle", "cereal",
+//  "danger", "ensign", "florid", "garage", "health", "insult",
+//  "jackal", "keeper", "loaner", "manage", "nonce", "onset",
+//  "plaid", "quilt", "remote", "stolid", "train", "useful",
+//  "valid", "whence", "xenon", "yearn", "zippy"};
+
+ bool load(std::vector<string> &data, const string &filePath) { 
+    std::ifstream in;
 
 
- int main() {
+    in.open(filePath);
+    if (!in.is_open())
+    {
+        std::cout << "failed to open file " << filePath << std::endl;
+        std::exit(EXIT_FAILURE);
+    }
+    
+
+    string word;
+    while(in >> word) {
+        data.push_back(word);
+    }
+
+    in.close();
+
+    return true;
+ }
+
+ int main(int argc, char *argv[]) {
     using std::cout;
     using std::cin;
     using std::tolower;
     using std::endl;
-    // std::vector<int>::iterator iter;
     std::srand(std::time(0));
+    std::vector<string> wordlist;
     char play;
     cout << "Will you play a word game? <y/n> ";
     cin >> play;
     play = tolower(play);
 
+    if (argc <= 1) {
+        cout << "You don't offer the source word list.";
+        return 0;
+    }
+    if (false == load(wordlist, argv[1])) {
+        cout << "Read file error.";
+        return 0;
+    }
+
     while(play == 'y') {
-        string target = wordlist[std::rand() & NUM];
+        string target = wordlist[std::rand() % wordlist.size()];
         int length = target.length();
         string attempt(length, '-');
         string badchars;

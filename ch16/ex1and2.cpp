@@ -2,7 +2,6 @@
 #include <string>
 #include <algorithm>
 
-
 class isParlindrome {
     public:
         virtual bool operator()(const std::string &s) {

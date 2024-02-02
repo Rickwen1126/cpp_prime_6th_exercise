@@ -1,0 +1,4 @@
+class=e fname=rick lname=wen job=king 
+class=m fname=rick lname=wen job=yy in_charge_of=10 
+class=f fname=tracy lname=kao job=nurse reportsto=gala 
+class=h fname=fat lname=super job=fuck reportsto=superb in_charge_of=11 

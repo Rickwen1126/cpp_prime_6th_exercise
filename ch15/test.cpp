@@ -1,10 +1,10 @@
 #include <iostream>
 
-int main() {
-    struct dat {short a; short b;};
-    long value = 0xA224B118;
-    dat *pd = reinterpret_cast<dat*>(&value);
-    std::cout << std::hex << pd->b;
+int main() {    
+    using namespace std;
+    cout.precision(3);
+    double a = 1.23333;
 
+    cout << a;
     return 0;
 }

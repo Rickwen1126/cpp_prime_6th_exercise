@@ -90,11 +90,20 @@ class TooBig{
 int main() {
     using namespace std;
 
-    string s("abhghj");
+    // string s("abhghj");
 
-    uppercase(s);
+    // uppercase(s);
     
-    cout << TooBig<int>(10)(15);
+    // cout << TooBig<int>(10)(15);
+
+    set<int> A{1,2,3};
+    set<int> B{5,6,7};
+
+    auto fPlus = bind1st(plus<int>(), 1);
+
+    transform(A.begin(), A.end(), insert_iterator<set<int>>(B, B.begin()), fPlus);
+
+    copy(B.begin(), B.end(), ostream_iterator<int, char>(cout, " "));
 
 
     // reports<Gala<double>>(g1);

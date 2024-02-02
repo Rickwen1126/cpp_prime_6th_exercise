@@ -1,10 +1,26 @@
 #include <iostream> 
 #include <cstdlib>
 #include <ctime>
-#include "queue.h"
+#include <queue>
 
 const int MIN_PER_HR = 60;
 const int QUEUE_MAX = 10;
+
+class Customer {
+    private:
+        long arrive;
+        int processtime;
+    public:
+        Customer() {arrive = processtime = 0;}
+        void set(long when) { 
+            processtime = std::rand() % 3 + 1;
+            arrive = when;
+        }
+        long when() const {return arrive;}
+        int ptime() const {return processtime;}
+};
+
+typedef Customer Item;
 
 bool newcustomer(double x)
 {
@@ -21,7 +37,8 @@ int main() {
     cout << "Enter maximum size of queue: ";
     int qs;
     cin >> qs;
-    Queue line(qs);
+
+    std::queue<Item> line;
 
     cout << "Enter the number of simulation hours: ";
     int hours;
@@ -43,17 +60,17 @@ int main() {
 
     for (int cycle = 0; cycle < cyclelimit; cycle++) {
         if (newcustomer(min_per_cust)) {
-            if(line.isfull()) {
+            if(line.size() == qs) {
                 turnaways++;
             } else {
                 customers++;
                 temp.set(cycle);
-                line.enqueue(temp);
+                line.push(temp);
             }
         }
 
-        if (wait_time <= 0 && !line.isempty()) {
-            line.dequeue(temp);
+        if (wait_time <= 0 && !line.empty()) {
+            line.pop();
             wait_time = temp.ptime();
             line_wait += cycle - temp.when();
             served++;
@@ -63,7 +80,7 @@ int main() {
             wait_time--;
         }
 
-        sum_line += line.queuecount();
+        sum_line += line.size();
     }
 
     if (customers > 0) {
